@@ -1,26 +1,57 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Valentine 💖</title>
+<title>Be My Valentine 💘</title>
 
 <style>
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+
 body{
+  margin:0;
+  height:100vh;
+  background:linear-gradient(135deg,#ffafbd,#ffc3a0);
+  font-family:'Poppins',sans-serif;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  overflow:hidden;
+}
+
+.card{
+  background:white;
+  padding:40px;
+  border-radius:25px;
   text-align:center;
-  font-family:Arial;
-  background:#ffe6f0;
+  box-shadow:0 20px 40px rgba(0,0,0,0.2);
+  animation:pop 1s ease;
+}
+
+@keyframes pop{
+  from{transform:scale(0.5);opacity:0;}
+  to{transform:scale(1);opacity:1;}
 }
 
 h1{
-  margin-top:60px;
+  color:#ff4d6d;
+  margin-bottom:20px;
+}
+
+img{
+  width:220px;
+  border-radius:15px;
+}
+
+.buttons{
+  margin-top:25px;
 }
 
 button{
-  padding:15px 25px;
-  font-size:20px;
-  margin:20px;
+  padding:15px 30px;
+  font-size:18px;
   border:none;
-  border-radius:10px;
+  border-radius:30px;
   cursor:pointer;
+  transition:0.3s;
 }
 
 #yes{
@@ -28,37 +59,62 @@ button{
   color:white;
 }
 
+#yes:hover{
+  transform:scale(1.1);
+}
+
 #no{
-  background:#999;
-  color:white;
+  background:#ddd;
   position:absolute;
+}
+
+.heart{
+  position:fixed;
+  color:#ff4d6d;
+  font-size:20px;
+  animation:float 5s linear infinite;
+}
+
+@keyframes float{
+  from{transform:translateY(100vh);opacity:1;}
+  to{transform:translateY(-10vh);opacity:0;}
 }
 </style>
 </head>
 
 <body>
 
-<h1>Will you be my Valentine? 💘</h1>
-
-<img src="https://media.giphy.com/media/MDJ9IbxxvDUQM/giphy.gif" width="250">
-
-<br>
-
-<button id="yes" onclick="love()">YES 😍</button>
-<button id="no" onmouseover="move()">NO 😭</button>
+<div class="card" id="card">
+  <h1>Will you be my Valentine? 💖</h1>
+  <img src="https://media.giphy.com/media/MDJ9IbxxvDUQM/giphy.gif">
+  <div class="buttons">
+    <button id="yes" onclick="yesClick()">YES 😍</button>
+    <button id="no" onmouseover="moveNo()">NO 🙈</button>
+  </div>
+</div>
 
 <script>
-function love(){
-  document.body.innerHTML =
-  "<h1>Yayyy ❤️ I love you so much!</h1><p>Happy Valentine’s Day 💕</p>";
+function yesClick(){
+  document.getElementById("card").innerHTML =
+  "<h1>Yayyy 💕</h1><p>You just made my heart so happy 🥰</p><img src='https://media.giphy.com/media/l4FGuhL4U2WyjdkaY/giphy.gif'>";
 }
 
-function move(){
-  var x = Math.random() * (window.innerWidth - 100);
-  var y = Math.random() * (window.innerHeight - 100);
-  document.getElementById('no').style.left = x + 'px';
-  document.getElementById('no').style.top = y + 'px';
+function moveNo(){
+  var x=Math.random()*(window.innerWidth-100);
+  var y=Math.random()*(window.innerHeight-100);
+  document.getElementById("no").style.left=x+'px';
+  document.getElementById("no").style.top=y+'px';
 }
+
+setInterval(()=>{
+  const heart=document.createElement("div");
+  heart.className="heart";
+  heart.innerHTML="❤️";
+  heart.style.left=Math.random()*100+"vw";
+  heart.style.fontSize=(Math.random()*20+10)+"px";
+  document.body.appendChild(heart);
+  setTimeout(()=>heart.remove(),5000);
+},300);
 </script>
 
 </body>
